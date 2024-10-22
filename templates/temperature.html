@@ -1,95 +1,29 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Конвертер температуры</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .converter {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        input, select {
-            width: 100%;
-            margin: 10px 0;
-            padding: 10px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Temperature Converter</title>
 </head>
 <body>
-
-<div class="converter">
-    <h1>Конвертер температуры</h1>
-    <label for="temperature">Введите температуру:</label>
-    <input type="number" id="temperature" placeholder="Температура" required>
-
-    <label for="fromUnit">Из единицы измерения:</label>
-    <select id="fromUnit">
-        <option value="celsius">Цельсий</option>
-        <option value="fahrenheit">Фаренгейт</option>
-        <option value="kelvin">Кельвин</option>
-    </select>
-
-    <label for="toUnit">На единицу измерения:</label>
-    <select id="toUnit">
-        <option value="celsius">Цельсий</option>
-        <option value="fahrenheit">Фаренгейт</option>
-        <option value="kelvin">Кельвин</option>
-    </select>
-
-    <button onclick="convertTemperature()">Перевести</button>
-    <p id="result"></p>
-</div>
-
-<script>
-    function convertTemperature() {
-        const temperature = parseFloat(document.getElementById('temperature').value);
-        const fromUnit = document.getElementById('fromUnit').value;
-        const toUnit = document.getElementById('toUnit').value;
-
-        let tempInCelsius;
-
-        // Преобразование температуры в Цельсий
-        if (fromUnit === 'celsius') {
-            tempInCelsius = temperature;
-        } else if (fromUnit === 'fahrenheit') {
-            tempInCelsius = (temperature - 32) * 5 / 9;
-        } else if (fromUnit === 'kelvin') {
-            tempInCelsius = temperature - 273.15;
-        }
-
-        // Преобразование Цельсия в целевую единицу
-        let convertedTemperature;
-        if (toUnit === 'celsius') {
-            convertedTemperature = tempInCelsius;
-        } else if (toUnit === 'fahrenheit') {
-            convertedTemperature = (tempInCelsius * 9 / 5) + 32;
-        } else if (toUnit === 'kelvin') {
-            convertedTemperature = tempInCelsius + 273.15;
-        }
-
-        document.getElementById('result').innerText = `Результат: ${convertedTemperature.toFixed(2)} °${toUnit.charAt(0).toUpperCase() + toUnit.slice(1, 4)}`;
-    }
-</script>
-
+    <h1>Temperature Converter</h1>
+    <form method="post">
+        <input type="number" name="value" required placeholder="Enter value">
+        <select name="from_unit" required>
+            <option value="C">Celsius</option>
+            <option value="F">Fahrenheit</option>
+            <option value="K">Kelvin</option>
+        </select>
+        to
+        <select name="to_unit" required>
+            <option value="C">Celsius</option>
+            <option value="F">Fahrenheit</option>
+            <option value="K">Kelvin</option>
+        </select>
+        <button type="submit">Convert</button>
+    </form>
+    {% if result is not none %}
+        <h2>Converted Value: {{ result }}</h2>
+    {% endif %}
+    <a href="/length">Go to Length Converter</a>
+    <a href="/weight">Go to Weight Converter</a>
 </body>
 </html>
