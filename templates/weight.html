@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конвертер веса</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .converter {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input, select {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="converter">
+    <h1>Конвертер веса</h1>
+    <label for="weight">Введите вес:</label>
+    <input type="number" id="weight" placeholder="Вес" required>
+
+    <label for="fromUnit">Из единицы измерения:</label>
+    <select id="fromUnit">
+        <option value="grams">Граммы</option>
+        <option value="kilograms">Килограммы</option>
+        <option value="pounds">Фунты</option>
+        <option value="ounces">Унции</option>
+    </select>
+
+    <label for="toUnit">На единицу измерения:</label>
+    <select id="toUnit">
+        <option value="grams">Граммы</option>
+        <option value="kilograms">Килограммы</option>
+        <option value="pounds">Фунты</option>
+        <option value="ounces">Унции</option>
+    </select>
+
+    <button onclick="convertWeight()">Перевести</button>
+    <p id="result"></p>
+</div>
+
+<script>
+    function convertWeight() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const fromUnit = document.getElementById('fromUnit').value;
+        const toUnit = document.getElementById('toUnit').value;
+
+        const conversionRates = {
+            grams: 1,
+            kilograms: 0.001,
+            pounds: 0.00220462,
+            ounces: 0.035274
+        };
+
+        // Преобразование веса в граммы
+        const weightInGrams = weight / conversionRates[fromUnit];
+
+        // Преобразование граммов в целевую единицу
+        const convertedWeight = weightInGrams * conversionRates[toUnit];
+
+        document.getElementById('result').innerText = `Результат: ${convertedWeight.toFixed(2)} ${toUnit}`;
+    }
+</script>
+
+</body>
+</html>

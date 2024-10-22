@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конвертер длины</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .converter {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input, select {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="converter">
+    <h1>Конвертер длины</h1>
+    <label for="length">Введите длину:</label>
+    <input type="number" id="length" placeholder="Длина" required>
+
+    <label for="fromUnit">Из единицы измерения:</label>
+    <select id="fromUnit">
+        <option value="meters">Метры</option>
+        <option value="kilometers">Километры</option>
+        <option value="miles">Мили</option>
+        <option value="feet">Футы</option>
+        <option value="inches">Дюймы</option>
+    </select>
+
+    <label for="toUnit">На единицу измерения:</label>
+    <select id="toUnit">
+        <option value="meters">Метры</option>
+        <option value="kilometers">Километры</option>
+        <option value="miles">Мили</option>
+        <option value="feet">Футы</option>
+        <option value="inches">Дюймы</option>
+    </select>
+
+    <button onclick="convertLength()">Перевести</button>
+    <p id="result"></p>
+</div>
+
+<script>
+    function convertLength() {
+        const length = parseFloat(document.getElementById('length').value);
+        const fromUnit = document.getElementById('fromUnit').value;
+        const toUnit = document.getElementById('toUnit').value;
+
+        const conversionRates = {
+            meters: 1,
+            kilometers: 0.001,
+            miles: 0.000621371,
+            feet: 3.28084,
+            inches: 39.3701
+        };
+
+        // Преобразование длины в метры
+        const lengthInMeters = length / conversionRates[fromUnit];
+
+        // Преобразование метров в целевую единицу
+        const convertedLength = lengthInMeters * conversionRates[toUnit];
+
+        document.getElementById('result').innerText = `Результат: ${convertedLength.toFixed(2)} ${toUnit}`;
+    }
+</script>
+
+</body>
+</html>
